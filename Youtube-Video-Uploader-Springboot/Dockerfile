@@ -18,10 +18,10 @@ FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
 # Copy only the final jar from builder stage
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=builder /app/target/*.jar Youtube-Video-Uploader.jar
 
 # Expose the app port
 EXPOSE 8080
 
 # Run the app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "Youtube-Video-Uploader.jar"]
