@@ -1,14 +1,27 @@
-# Step 1: Use an official OpenJDK image
-FROM openjdk:17-jdk-slim
+# Stage 1: Build the application
+FROM maven:3.9.4-eclipse-temurin-17 AS builder
 
-# Step 2: Set working directory
+# Set working directory
 WORKDIR /app
 
-# Step 3: Copy built jar file into container
-COPY target/*.jar app.jar
+# Copy project files
+COPY pom.xml .
+COPY src ./src
 
-# Step 4: Expose port 8080
+# Build the app
+RUN mvn clean package -DskipTests
+
+# Stage 2: Create the minimal runtime image
+FROM eclipse-temurin:17-jre-jammy
+
+# Set working directory
+WORKDIR /app
+
+# Copy only the final jar from builder stage
+COPY --from=builder /app/target/*.jar app.jar
+
+# Expose the app port
 EXPOSE 8080
 
-# Step 5: Run the jar file
+# Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
