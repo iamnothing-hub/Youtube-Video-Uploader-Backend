@@ -10,13 +10,11 @@ COPY Youtube-Video-Uploader-Springboot/src/ Youtube-Video-Uploader-Springboot/sr
 COPY Youtube-Video-Uploader-Springboot/.mvn/ Youtube-Video-Uploader-Springboot/.mvn/
 COPY Youtube-Video-Uploader-Springboot/mvnw Youtube-Video-Uploader-Springboot/mvnw
 
-
-# 🧡 Fix permissions for mvnw
-RUN chmod +x mvnw
-
-
-# Move inside the Spring Boot project
+# 🔥 Move inside the project directory
 WORKDIR /app/Youtube-Video-Uploader-Springboot
+
+# 🧡 Fix permissions for mvnw (now mvnw is available here)
+RUN chmod +x mvnw
 
 # Build the app
 RUN ./mvnw clean package -DskipTests
