@@ -5,6 +5,8 @@ FROM maven:3.9.4-eclipse-temurin-17 AS builder
 WORKDIR /app
 
 # Copy project files
+COPY Youtube-Video-Uploader-Springboot/pom.xml .
+COPY Youtube-Video-Uploader-Springboot/src .
 COPY . .
 
 # Build the app
